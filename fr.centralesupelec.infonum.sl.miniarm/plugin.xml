@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+	<extension point="org.eclipse.emf.ecore.generated_package">
+		<package
+			uri = "http://www.centralesupelec.fr/infonum/sl/miniarm/MiniARM"
+			class = "fr.centralesupelec.infonum.sl.miniarm.miniARM.MiniARMPackage"
+			genModel = "model/generated/MiniARM.genmodel" />
+	</extension>
+</plugin>

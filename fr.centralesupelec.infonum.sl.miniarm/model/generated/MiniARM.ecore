@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="miniARM" nsURI="http://www.centralesupelec.fr/infonum/sl/miniarm/MiniARM"
+    nsPrefix="miniARM">
+  <eClassifiers xsi:type="ecore:EClass" name="Program">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lines" upperBound="-1"
+        eType="#//Line" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Line">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="labelDef" eType="#//LabelDef"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inst" eType="#//Instruction"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Include" eSuperTypes="#//Line">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LabelDef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="label" eType="#//Label"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Label">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Instruction"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AssemblyInst" eSuperTypes="#//Instruction"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PseudoInst" eSuperTypes="#//Instruction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reg" eType="#//Register"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RealInst" eSuperTypes="#//Instruction"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RMW" eSuperTypes="#//AssemblyInst">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="size" eType="#//Const"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SMW" eSuperTypes="#//AssemblyInst">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Const"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SMS" eSuperTypes="#//AssemblyInst">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PUSH" eSuperTypes="#//PseudoInst"/>
+  <eClassifiers xsi:type="ecore:EClass" name="POP" eSuperTypes="#//PseudoInst"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LOAD" eSuperTypes="#//RealInst">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reg" eType="#//Register"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="address" eType="#//Address"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Register" eSuperTypes="#//MoveValue #//BranchAddress">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Immediate" eSuperTypes="#//MoveValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Value"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Value" eSuperTypes="#//BranchAddress">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="label" eType="#//Label"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="num" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Const" eSuperTypes="#//Value"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HexConst" eSuperTypes="#//Value"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Direct" eSuperTypes="#//Address">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="address" eType="#//Value"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DirectReg" eSuperTypes="#//Address">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reg" eType="#//Register"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="STORE" eSuperTypes="#//RealInst">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reg" eType="#//Register"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="address" eType="#//Address"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Address"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MOVE" eSuperTypes="#//RealInst">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dst" eType="#//Register"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="src" eType="#//MoveValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MoveValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ADD" eSuperTypes="#//RealInst">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dst" eType="#//Register"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="src1" eType="#//Register"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="src2" eType="#//MoveValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SUB" eSuperTypes="#//RealInst">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dst" eType="#//Register"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="src1" eType="#//Register"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="src2" eType="#//MoveValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CMP" eSuperTypes="#//RealInst">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="src1" eType="#//Register"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="src2" eType="#//MoveValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BEQ" eSuperTypes="#//RealInst">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dest" eType="#//BranchAddress"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BranchAddress"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BLT" eSuperTypes="#//RealInst">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dest" eType="#//BranchAddress"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BRANCH" eSuperTypes="#//RealInst">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dest" eType="#//BranchAddress"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BLINK" eSuperTypes="#//RealInst">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reg" eType="#//Register"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dest" eType="#//BranchAddress"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

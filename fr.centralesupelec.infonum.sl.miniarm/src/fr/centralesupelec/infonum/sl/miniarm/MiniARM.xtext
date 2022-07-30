@@ -1,0 +1,229 @@
+grammar fr.centralesupelec.infonum.sl.miniarm.MiniARM hidden(WS)
+
+generate miniARM "http://www.centralesupelec.fr/infonum/sl/miniarm/MiniARM"
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+/*
+ * fr.centralesupelec.infonum.sl.miniarm.ui.MiniARMUiModule.java is modified to install
+ * a custom FoldingRegionProvider to avoid spurious folding region indicators in the editor:
+ * 
+ * import java.util.Collection;
+ * import java.util.Collections;
+ * 
+ * import org.eclipse.ui.plugin.AbstractUIPlugin;
+ * import org.eclipse.xtext.resource.XtextResource;
+ * import org.eclipse.xtext.ui.editor.folding.DefaultFoldingRegionProvider;
+ * import org.eclipse.xtext.ui.editor.folding.FoldedPosition;
+ * import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
+ * import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+ * 
+ * class MyFoldingRegionProvider extends DefaultFoldingRegionProvider {
+ *	 @Override
+ *	 protected Collection<FoldedPosition> doGetFoldingRegions(IXtextDocument xtextDocument, XtextResource xtextResource) {
+ *		return Collections.emptyList();
+ *	 }
+ * }
+ *
+ * public class MiniARMUiModule extends AbstractMiniARMUiModule {
+ *	 public MiniARMUiModule(AbstractUIPlugin plugin) {
+ *		super(plugin);
+ *	 }
+ *	
+ *	 public Class<? extends IFoldingRegionProvider> bindIFoldingRegionProvider() {
+ *	    return MyFoldingRegionProvider.class;
+ *	 }
+ * }
+ */
+
+Program:
+	lines+=Line*
+;
+
+/*
+ * Includes are processed in fr.centralesupelec.infonum.sl.miniarm.generator.MiniARMGenerator.xtend
+ * thanks to the fr.centralesupelec.infonum.sl.miniarm.semantics.MacroExpander.xtend class
+ */
+Line:
+	Include
+|	{Line} (labelDef=LabelDef)? (inst=Instruction)? (NL | comment=SL_COMMENT)
+;
+
+Include:
+	'include' fileName=STRING NL
+;
+
+LabelDef:
+	'@' label=Label
+;
+
+Label:
+	name=ID
+;
+
+Instruction:
+	AssemblyInst | PseudoInst | RealInst
+;
+
+AssemblyInst:
+	RMW | SMW | SMS
+;
+
+PseudoInst:
+	PUSH | POP
+;
+
+RealInst:
+	LOAD | STORE | MOVE | ADD | SUB | CMP | BEQ | BLT | BRANCH | BLINK
+;
+
+RMW:
+	'rmw' size=Const
+;
+
+SMW:
+	'smw' value=Const
+;
+
+SMS:
+	'smw' value=STRING
+;
+
+PUSH:
+	'push' reg=Register
+;
+
+POP:
+	'pop' reg=Register
+;
+
+LOAD:
+	'ldr' reg=Register ',' address=Address
+;
+
+Register:
+	name='r0' | name='r1' | name='r2' | name='r3' | name='r4' | name='r5' | name='r6' | name='sp' | name='r7' | name='lr'
+;
+
+Immediate:
+	'#' value=Value
+;
+
+Value:
+	Const | HexConst | label=[Label]
+;
+
+Const:
+	num=INT
+;
+
+HexConst:
+	num=HEXINT
+;
+
+Direct:
+	address=Value
+;
+
+DirectReg:
+	'[' reg=Register ']'
+;
+
+STORE:
+	'str' reg=Register ',' address=Address
+	
+;
+
+Address:
+	Direct | DirectReg
+;
+
+MOVE:
+	'mov' dst=Register ',' src=MoveValue
+;
+
+MoveValue:
+	Immediate | Register
+;
+
+ADD:
+	'add' dst=Register ',' src1=Register ',' src2=MoveValue
+;
+
+SUB:
+	'sub' dst=Register ',' src1=Register ',' src2=MoveValue
+;
+
+CMP:
+	'cmp' src1=Register ',' src2=MoveValue
+;
+
+BEQ:
+	'beq' dest=BranchAddress
+;
+
+BranchAddress:
+	Value | Register
+;
+
+BLT:
+	'blt' dest=BranchAddress
+	
+;
+
+BRANCH:
+	'b' dest=BranchAddress
+	
+;
+
+BLINK:
+	'bl' reg=Register ',' dest=BranchAddress
+	
+;
+
+terminal ID: '^'?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+terminal INT returns ecore::EInt: ('-'|'+')?('0'..'9')+;
+/*
+ * fr.centralesupelec.fr.infonum.sl.miniarm.MiniARMRuntimeModule is modified to install
+ * a custom FoldingRegionProvider to avoid spurious folding region indicators in the editor:
+ * 
+ * import org.eclipse.xtext.conversion.IValueConverterService;
+ *
+ * public class MiniARMRuntimeModule extends AbstractMiniARMRuntimeModule {
+ *   @Override public Class<? extends IValueConverterService> bindIValueConverterService() {
+ *  	return MyValueConverters.class;
+ *   }
+ * }
+ * 
+ * with fr.centralesupelec.fr.infonum.sl.miniarm.MyValueConverters.java containing:
+ * 
+ * import org.eclipse.xtext.common.services.DefaultTerminalConverters;
+ * import org.eclipse.xtext.conversion.IValueConverter;
+ * import org.eclipse.xtext.conversion.ValueConverter;
+ * import org.eclipse.xtext.conversion.ValueConverterException;
+ * import org.eclipse.xtext.conversion.impl.AbstractToStringConverter;
+ * import org.eclipse.xtext.nodemodel.INode;
+ * 
+ * public class MyValueConverters extends DefaultTerminalConverters {
+ *   @ValueConverter(rule = "HEXINT")
+ *   public IValueConverter<Integer> HEXINT() {
+ *   	return new AbstractToStringConverter<Integer>() {
+ *   		@Override
+ *   		protected Integer internalToValue(String string, INode node) throws ValueConverterException {
+ *   			return Integer.decode(string);
+ *   		}
+ *   	};
+ *   }
+ * }
+ */
+terminal HEXINT returns ecore::EInt: ('-'|'+')?'0x'('0'..'9' | 'A'..'F')+;
+terminal STRING:
+			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"' |
+			"'" ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|"'") )* "'"
+		;
+terminal SL_COMMENT : '%' -> NL;
+
+terminal WS         : (' '|'\t')+;
+terminal NL         : ('\r'|'\n')+;
+
+terminal ANY_OTHER: .;
