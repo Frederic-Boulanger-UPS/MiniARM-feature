@@ -1,23 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feature id="fr.centralesupelec.infonum.sl.miniarm.feature"
-	label="MiniARM Feature "
-	version="1.0.0.qualifier">
-	<plugin
-			id="fr.centralesupelec.infonum.sl.miniarm"
-			download-size="0"
-			install-size="0"
-			version="0.0.0"
-			unpack="false"/>
-	<plugin
-			id="fr.centralesupelec.infonum.sl.miniarm.ide"
-			download-size="0"
-			install-size="0"
-			version="0.0.0"
-			unpack="false"/>
-	<plugin
-			id="fr.centralesupelec.infonum.sl.miniarm.ui"
-			download-size="0"
-			install-size="0"
-			version="0.0.0"
-			unpack="false"/>
+<feature
+      id="fr.centralesupelec.infonum.sl.miniarm.feature"
+      label="MiniARM Feature "
+      version="1.0.0.qualifier"
+      provider-name="CentraleSupélec, frederic.boulanger@centralesupelec.fr">
+
+   <description>
+      An Xtext feature providing an editor and an assembler for the MiniARM processor used in the Software Science 3rd year major at CentraleSupélec
+
+See https://wdi.centralesupelec.fr/pfo/Info/ARMCours (in French) for the instruction set
+   </description>
+
+   <copyright>
+      ©CentraleSupelec, Frédéric Boulanger, 2022
+Apache 2.0 license
+   </copyright>
+
+   <url>
+      <discovery label="Author&apos;s web pages" url="https://wdi.centralesupelec.fr/boulanger"/>
+      <discovery label="Course in which this feature is used" url="https://wdi.centralesupelec.fr/pfo"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.xtext"/>
+      <import plugin="org.eclipse.xtext.xbase"/>
+      <import plugin="org.eclipse.equinox.common" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.xtext.xbase.lib" version="2.14.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.util"/>
+      <import plugin="org.eclipse.emf.common"/>
+      <import plugin="org.antlr.runtime" version="3.2.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.log4j"/>
+      <import plugin="org.eclipse.xtext.ide"/>
+      <import plugin="org.eclipse.xtext.xbase.ide"/>
+      <import plugin="org.eclipse.xtext.ui"/>
+      <import plugin="org.eclipse.xtext.ui.shared"/>
+      <import plugin="org.eclipse.xtext.ui.codetemplates.ui"/>
+      <import plugin="org.eclipse.ui.editors" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.ide" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.compare"/>
+      <import plugin="org.eclipse.xtext.builder"/>
+   </requires>
+
+   <plugin
+         id="fr.centralesupelec.infonum.sl.miniarm"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="fr.centralesupelec.infonum.sl.miniarm.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="fr.centralesupelec.infonum.sl.miniarm.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

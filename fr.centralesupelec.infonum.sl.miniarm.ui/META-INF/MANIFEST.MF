@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Automatic-Module-Name: fr.centralesupelec.infonum.sl.miniarm.ui
 Bundle-ManifestVersion: 2
 Bundle-Name: fr.centralesupelec.infonum.sl.miniarm.ui
-Bundle-Vendor: My Company
+Bundle-Vendor: CentraleSupélec, frederic.boulanger@centralesupelec.fr
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: fr.centralesupelec.infonum.sl.miniarm.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
