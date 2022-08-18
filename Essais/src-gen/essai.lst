@@ -4,41 +4,41 @@
 % It should stop by looping at address 0x0020 (label 'end')
 % If it stops at another address, there is a bug...
 %
-0000            2800 mov  r0, #5             % load 5 into r0
+0000 @toto      0000 rmw  1                 
+0001            2800 mov  r0, #5             % load 5 into r0
                 0005
-0002            1800 str  r0, var            % store 5 in var
-                0024
-0004            0900 ldr  r1, var            % load var into r2
-                0024
-0006            5020 cmp  r1, r0             % did we read the same value?
-0007            6800 beq  okls              
-                000B
-0009 @errls     8800 b    errls              % no => loop here
-                0009
-000B @okls      3224 add  r2, r1, r1         % r2 <- 2*r1
-000C            5044 cmp  r2, r1             % is r2 < r1
-000D            7800 blt  err1               % yes => error
-                0011
-000F            8800 b    ok1                % no, continue
-                0013
-0011 @err1      8800 b    err1               % loop here
-                0011
-0013 @ok1       5820 cmp  r1, #5             % is r1 = 5
-                0005
-0015            6800 beq  ok2                % yes, it's ok
-                0019
-0017 @err2      8800 b    err2               % no => error, loop here
-                0017
-0019 @ok2       4328 sub  r3, r1, r2         % r3 <- r1-r2
-001A            5860 cmp  r3, #0             % is r3 < 0
-                0000
-001C            7800 blt  end                % yes => ok
-                0020
-001E @err3      8800 b    err3               % no => error, loop here
-                001E
-0020 @end       8800 b    end                % end of program, loop here
-                0020
-0022            0800 ldr  r0, toto          
+0003            1800 str  r0, var            % store 5 in var
                 0025
-0024 @var       0000 rmw  1                  % reserve a word for a variable
-0025 @toto      801C b    lr                
+0005            0900 ldr  r1, var            % load var into r2
+                0025
+0007            5020 cmp  r1, r0             % did we read the same value?
+0008            6800 beq  okls              
+                000C
+000A @errls     8800 b    errls              % no => loop here
+                000A
+000C @okls      3224 add  r2, r1, r1         % r2 <- 2*r1
+000D            5044 cmp  r2, r1             % is r2 < r1
+000E            7800 blt  err1               % yes => error
+                0012
+0010            8800 b    ok1                % no, continue
+                0014
+0012 @err1      8800 b    err1               % loop here
+                0012
+0014 @ok1       5820 cmp  r1, #5             % is r1 = 5
+                0005
+0016            6800 beq  ok2                % yes, it's ok
+                001A
+0018 @err2      8800 b    err2               % no => error, loop here
+                0018
+001A @ok2       4328 sub  r3, r1, r2         % r3 <- r1-r2
+001B            5860 cmp  r3, #0             % is r3 < 0
+                0000
+001D            7800 blt  end                % yes => ok
+                0021
+001F @err3      8800 b    err3               % no => error, loop here
+                001F
+0021 @end       8800 b    end                % end of program, loop here
+                0021
+0023            0800 ldr  r0, toto          
+                0000
+0025 @var       0000 rmw  1                  % reserve a word for a variable

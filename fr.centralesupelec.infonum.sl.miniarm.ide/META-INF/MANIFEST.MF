@@ -13,3 +13,5 @@ Require-Bundle: fr.centralesupelec.infonum.sl.miniarm,
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: fr.centralesupelec.infonum.sl.miniarm.ide.contentassist.antlr.internal,
  fr.centralesupelec.infonum.sl.miniarm.ide.contentassist.antlr
+Bundle-ClassPath: bin/,
+ .

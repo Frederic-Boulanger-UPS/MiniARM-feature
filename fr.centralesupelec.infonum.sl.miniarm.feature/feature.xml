@@ -47,21 +47,21 @@ Apache 2.0 license
          id="fr.centralesupelec.infonum.sl.miniarm"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="fr.centralesupelec.infonum.sl.miniarm.ide"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="fr.centralesupelec.infonum.sl.miniarm.ui"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
 </feature>

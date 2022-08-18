@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Automatic-Module-Name: fr.centralesupelec.infonum.sl.miniarm
 Bundle-ManifestVersion: 2
 Bundle-Name: fr.centralesupelec.infonum.sl.miniarm
-Bundle-Vendor: My Company
+Bundle-Vendor: CentraleSupélec, frederic.boulanger@centralesupelec.fr
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: fr.centralesupelec.infonum.sl.miniarm; singleton:=true
 Bundle-ActivationPolicy: lazy
@@ -27,3 +27,5 @@ Export-Package: fr.centralesupelec.infonum.sl.miniarm.validation,
  fr.centralesupelec.infonum.sl.miniarm.miniARM,
  fr.centralesupelec.infonum.sl.miniarm.parser.antlr
 Import-Package: org.apache.log4j
+Bundle-ClassPath: bin/,
+ .

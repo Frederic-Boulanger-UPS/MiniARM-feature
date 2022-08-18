@@ -25,6 +25,7 @@ class MacroExpander {
 				var inclines = (line as Include).expandInclude(resource, fsa)
 				if (inclines === null) {
 					System.err.println('File "' + (line as Include).fileName + '" does not exist')
+					expLines.add(line)  // Let the line unchanged
 				} else {
 					expLines.addAll(inclines)
 				}

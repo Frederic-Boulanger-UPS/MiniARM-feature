@@ -47,7 +47,7 @@ class MiniARMScopeProvider extends AbstractMiniARMScopeProvider {
 				if (line instanceof Include) {
 					// Get the labels declared in the included file
 					var rez = (line as Include).checkIncludeFileExists
-					if (rez.contents.size > 0) {
+					if (rez !== null && rez.contents.size > 0) {
 						labelDecls.addAll(getLabelDeclarationsInProg(rez.contents.get(0) as Program))
 					}
 				}

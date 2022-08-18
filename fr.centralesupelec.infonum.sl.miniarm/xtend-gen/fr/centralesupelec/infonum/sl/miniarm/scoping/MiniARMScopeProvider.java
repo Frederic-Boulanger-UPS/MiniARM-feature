@@ -61,9 +61,7 @@ public class MiniARMScopeProvider extends AbstractMiniARMScopeProvider {
           }
           if ((line instanceof Include)) {
             Resource rez = this.validator.checkIncludeFileExists(((Include) line));
-            int _size = rez.getContents().size();
-            boolean _greaterThan = (_size > 0);
-            if (_greaterThan) {
+            if (((rez != null) && (rez.getContents().size() > 0))) {
               EObject _get = rez.getContents().get(0);
               labelDecls.addAll(this.getLabelDeclarationsInProg(((Program) _get)));
             }

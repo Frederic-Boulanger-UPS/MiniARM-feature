@@ -4,6 +4,7 @@
 % It should stop by looping at address 0x0020 (label 'end')
 % If it stops at another address, there is a bug...
 %
+		include "toto.arm"
         mov r0,#5       % load 5 into r0
         str r0, var     % store 5 in var
         ldr r1, var     % load var into r2
@@ -25,4 +26,3 @@
 @end    b end           % end of program, loop here
  		ldr r0, toto
 @var    rmw 1           % reserve a word for a variable
-include "toti.arm"

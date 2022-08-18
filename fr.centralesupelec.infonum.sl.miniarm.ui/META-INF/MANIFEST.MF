@@ -22,3 +22,5 @@ Export-Package: fr.centralesupelec.infonum.sl.miniarm.ui.quickfix,
  fr.centralesupelec.infonum.sl.miniarm.ui.internal,
  fr.centralesupelec.infonum.sl.miniarm.ui.contentassist
 Bundle-Activator: fr.centralesupelec.infonum.sl.miniarm.ui.internal.MiniarmActivator
+Bundle-ClassPath: bin/,
+ .

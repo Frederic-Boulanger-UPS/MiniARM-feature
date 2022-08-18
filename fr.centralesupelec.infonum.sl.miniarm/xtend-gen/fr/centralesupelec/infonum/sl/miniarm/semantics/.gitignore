@@ -2,3 +2,11 @@
 /.LabelResolver.java._trace
 /.ListingGenerator.java._trace
 /.MacroExpander.java._trace
+/.CodeGenerator.xtendbin
+/.LabelResolver.xtendbin
+/.ListingGenerator.xtendbin
+/.MacroExpander.xtendbin
+/CodeGenerator.java
+/LabelResolver.java
+/ListingGenerator.java
+/MacroExpander.java

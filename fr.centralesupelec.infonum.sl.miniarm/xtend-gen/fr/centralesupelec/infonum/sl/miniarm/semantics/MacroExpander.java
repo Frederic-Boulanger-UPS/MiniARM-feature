@@ -45,6 +45,7 @@ public class MacroExpander {
             String _plus = ("File \"" + _fileName);
             String _plus_1 = (_plus + "\" does not exist");
             System.err.println(_plus_1);
+            expLines.add(line);
           } else {
             expLines.addAll(inclines);
           }

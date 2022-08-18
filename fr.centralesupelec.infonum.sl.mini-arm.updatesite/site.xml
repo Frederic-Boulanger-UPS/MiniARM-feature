@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="Mini-ARM feature update site" url="https://wdi.centralesupelec.fr/boulanger/misc/mini-arm-update-site">
+      Update site for Eclipse plug-ins used in the &quot;How Computers Work&quot; course of the &quot;Software Science&quot; 3rd major at CentraleSupélec
+   </description>
+   <feature url="features/fr.centralesupelec.infonum.sl.miniarm.feature_1.0.0.202208181833.jar" id="fr.centralesupelec.infonum.sl.miniarm.feature" version="1.0.0.202208181833">
+      <category name="Architecture"/>
+   </feature>
+   <category-def name="Architecture" label="Architecture">
+      <description>
+         Tools for the computer architecture course &quot;Principes de fonctionnement des ordinateurs&quot; (How Computers Work) in the Software Science 3rd year major at CentraleSupélec
+      </description>
+   </category-def>
+</site>

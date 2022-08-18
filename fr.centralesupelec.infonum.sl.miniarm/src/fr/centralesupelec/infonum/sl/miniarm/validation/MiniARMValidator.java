@@ -6,9 +6,10 @@ package fr.centralesupelec.infonum.sl.miniarm.validation;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.validation.CheckType;
 
 import fr.centralesupelec.infonum.sl.miniarm.miniARM.Include;
-import fr.centralesupelec.infonum.sl.miniarm.miniARM.MiniARMPackage;
+//import fr.centralesupelec.infonum.sl.miniarm.miniARM.MiniARMPackage;
 
 /**
  * This class contains custom validation rules. 
@@ -16,7 +17,7 @@ import fr.centralesupelec.infonum.sl.miniarm.miniARM.MiniARMPackage;
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 public class MiniARMValidator extends AbstractMiniARMValidator {
-	@Check
+	@Check(CheckType.FAST)
 	public Resource checkIncludeFileExists(Include inc) {
 		Resource progres = inc.eContainer().eResource();
 		ResourceSet rset = progres.getResourceSet();
@@ -25,10 +26,11 @@ public class MiniARMValidator extends AbstractMiniARMValidator {
 			incres = rset.getResource(progres.getURI().trimSegments(1).appendSegment(inc.getFileName()), true);
 		} catch (Exception exc) {
 			// incres will be null if there is an exception
-		}
-		if (incres == null) {
-			error("Included file \"" + inc.getFileName() + "\" does not exist",
-					MiniARMPackage.Literals.INCLUDE__FILE_NAME); // no such file
+			// The following code causes an error because ThreadLocal.get() returns null in AbstractDeclarativeValidator.error
+//			error("Included file \"" + inc.getFileName() + "\" does not exist",
+//					MiniARMPackage.Literals.INCLUDE__FILE_NAME); // no such file
+			
+			System.err.println("Included file \"" + inc.getFileName() + "\" does not exist");
 		}
 		return incres;
 	}
