@@ -1,0 +1,78 @@
+Christian Walther CLA Friend 2010-11-04 09:05:28 EDT
+
+Quitting and restarting Eclipse does not work around the problem for me
+(so the problem I have is probably unrelated to bug 244060), however
+removing and re-adding the feature does. Specifically, my observations
+(in Eclipse 3.6.1 build 20100617-1415) seem to suggest the following:
+
+In an update site project, site.xml Editor, "Site Map" tab, list under
+"Managing the Site":
+
+- When a feature is displayed as "features/ch.indel.idev_0.1.0.jar", the
+project is broken and clicking "Build All" will produce an update site
+in which the respective feature is uncategorized (even though it is
+inside a category in the list).
+
+- When the feature is displayed as "ch.indel.idev (0.1.0)", "Build All"
+will produce a correct update site with the feature properly
+categorized.
+
+- To bring a feature from the broken into the correct state, delete it
+from the list, then use "Add Feature" to add it again, and drag it into
+the correct category again. Clicking "Build All" immediately after that
+will generate a correct build product, but will transform the feature
+into the broken state again, so you have to repeat the exercise before
+the next build.
+
+(By the way, this looks like a duplicate of bug 283154 to me. And the
+problem I have is definitely on the update site creation side, not on
+the side of installing from the created update site, as can easily be
+verified by examining the content.xml in the built content.jar. So, not
+related to bug 268893.)
+
+
+Christian Walther CLA Friend 2010-11-04 10:05:55 EDT
+
+Update after playing around some more: What seems to make up the
+difference between the "broken" and "working" states is the replacement
+of the "qualifier" in the feature version (which I left out in the
+previous comment in a misguided attempt to save space).
+
+This is the site.xml after newly adding the feature and will build correctly (once):
+
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="iDev" url="http://indel.dyndns.org/idev">
+      Indel AG developer center
+   </description>
+   <feature url="features/ch.indel.idev.feature_0.1.0.qualifier.jar" id="ch.indel.idev.feature" version="0.1.0.qualifier">
+      <category name="ch.indel.idev.updatesite.category"/>
+   </feature>
+   <category-def name="ch.indel.idev.updatesite.category" label="Indel iDev">
+      <description>
+         Indel AG developer center
+      </description>
+   </category-def>
+</site>
+
+Building with the above site.xml will transform it into the one below,
+which (on all subsequent attempts) will not build correctly (i.e. the
+feature, in newly built version e.g. 0.1.0.201011041443, will be part of
+the built update site, but not categorized - probably site.xml still
+lists the previous version 0.1.0.201011041440 at the relevant time and
+is only updated to the new version later, or something):
+
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="iDev" url="http://indel.dyndns.org/idev">
+      Indel AG developer center
+   </description>
+   <feature url="features/ch.indel.idev.feature_0.1.0.201011041440.jar" id="ch.indel.idev.feature" version="0.1.0.201011041440">
+      <category name="ch.indel.idev.updatesite.category"/>
+   </feature>
+   <category-def name="ch.indel.idev.updatesite.category" label="Indel iDev">
+      <description>
+         Indel AG developer center
+      </description>
+   </category-def>
+</site>
